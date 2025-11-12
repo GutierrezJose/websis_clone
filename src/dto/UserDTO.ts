@@ -4,11 +4,11 @@ export class UserDTO {
     firstName: String;
     lastName: String;
     ci: Number;
-    birthDate: Date;
+    birthDate: String;
     address: String;
     phone: String;
 
-    constructor(id: Number, username: String, firstName: String, lastName: String, ci: Number, birthDate: Date, address: String, phone: String) {
+    constructor(id: Number, username: String, firstName: String, lastName: String, ci: Number, birthDate: String, address: String, phone: String) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
