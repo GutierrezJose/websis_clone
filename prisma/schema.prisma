@@ -94,7 +94,7 @@ model user {
   first_name        String?             @db.VarChar(100)
   last_name         String?             @db.VarChar(100)
   ci                Int
-  birthdate         DateTime?           @db.Timestamp(6)
+  birthdate         DateTime?           @db.Date
   address           String?             @db.VarChar(255)
   phone             String?             @db.VarChar(50)
   enrollment        enrollment[]
