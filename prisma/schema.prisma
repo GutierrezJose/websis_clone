@@ -89,7 +89,7 @@ model subject {
 
 model user {
   id_user           Int                 @id @default(autoincrement())
-  username          String              @db.VarChar(50)
+  username          String              @unique @db.VarChar(50)
   password          String              @db.VarChar(255)
   first_name        String?             @db.VarChar(100)
   last_name         String?             @db.VarChar(100)
@@ -104,9 +104,9 @@ model user {
 }
 
 model user_rol {
-  id_user_rol Int   @id @default(autoincrement())
-  id_user     Int?
-  id_rol      Int?
-  rol         rol?  @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction)
-  user        user? @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
+  id_user_rol Int  @id @default(autoincrement())
+  id_user     Int
+  id_rol      Int
+  rol         rol  @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction)
+  user        user @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
 }
