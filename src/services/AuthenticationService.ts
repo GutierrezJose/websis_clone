@@ -24,7 +24,7 @@ export class AuthenticationService {
                     }
                 }
                 const tokenPayload = {
-                    id_user: user.userData.id_user,
+                    userId: user.userData.id_user,
                     roles: userRoles
                 };
                 const token = generateToken(tokenPayload);
