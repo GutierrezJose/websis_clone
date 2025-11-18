@@ -43,4 +43,10 @@ export class RolRepository {
         })
         return role;
     }
+
+    async deleteRole(idRol: number) {
+        await prisma.rol.delete({
+            where: { id_rol: idRol }
+        })
+    }
 }

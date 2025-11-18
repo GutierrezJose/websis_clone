@@ -42,4 +42,13 @@ export class RoleService {
             await this.rolRepository.updateRole(idRol, data);
         }
     }
+
+    async deleteRole(idRol: number) {
+        const role = await this.rolRepository.findRoleById(idRol);
+        if(role) {
+            await this.rolRepository.deleteRole(idRol);
+        } else {
+            throw new Error('Role not found');
+        }
+    }
 }

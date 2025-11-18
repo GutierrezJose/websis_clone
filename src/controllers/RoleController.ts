@@ -48,4 +48,14 @@ export class RoleController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    async deleteRole(req: Request, res: Response) {
+        try {
+            const idRol = Number(req.params.idRol);
+            await this.roleService.deleteRole(idRol);
+            res.status(200).json({ message: "Role deleted successfully" });
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
