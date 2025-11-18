@@ -8,4 +8,11 @@ export class RolRepository {
         })
         return rol?.name ?? null;
     }
+
+    async createRole(name: string) {
+        const newRole = await prisma.rol.create({
+            data: { name }
+        })
+        return newRole;
+    }
 }
