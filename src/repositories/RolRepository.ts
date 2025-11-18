@@ -15,4 +15,9 @@ export class RolRepository {
         })
         return newRole;
     }
+
+    async getAllRoles() {
+        const roles = await prisma.rol.findMany();
+        return roles;
+    }
 }

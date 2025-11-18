@@ -14,4 +14,13 @@ export class RoleController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    async getAllRoles(req: Request, res: Response) {
+        try {
+            const roles = await this.roleService.getAllRoles();
+            res.status(200).json(roles);
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
