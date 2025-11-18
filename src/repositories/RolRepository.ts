@@ -1,3 +1,4 @@
+import type { RoleInterface } from '../interfaces/RoleInterface';
 import {prisma} from '../utils/prismaclient';
 
 export class RolRepository {
@@ -25,6 +26,20 @@ export class RolRepository {
         name = name.trim().toLocaleLowerCase();
         const role = await prisma.rol.findUnique({
             where: { name }
+        })
+        return role;
+    }
+
+    async updateRole(idRol: number, data: RoleInterface) {
+        await prisma.rol.update({
+            where: { id_rol: idRol},
+            data: {name: data.name}
+        });
+    }
+
+    async findRoleById(idRol: number) {
+        const role = await prisma.rol.findUnique({
+            where: { id_rol: idRol }
         })
         return role;
     }

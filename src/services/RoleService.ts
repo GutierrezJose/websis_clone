@@ -25,11 +25,21 @@ export class RoleService {
 
     async findRoleByName(name: string) {
         const role = await this.rolRepository.findRoleByName(name);
-        if(!role) {
+        if (!role) {
             return null;
         } else {
             const roleDTO = new RoleDTO(role.id_rol, role.name);
             return roleDTO;
+        }
+    }
+
+    async updateRole(idRol: number, data: RoleInterface) {
+        const role = await this.rolRepository.findRoleById(idRol);
+        if (!role) {
+            throw new Error('Role not found');
+        } else {
+            data.name = data.name.trim().toLocaleLowerCase();
+            await this.rolRepository.updateRole(idRol, data);
         }
     }
 }
