@@ -20,4 +20,12 @@ export class RolRepository {
         const roles = await prisma.rol.findMany();
         return roles;
     }
+
+    async findRoleByName(name: string) {
+        name = name.trim().toLocaleLowerCase();
+        const role = await prisma.rol.findUnique({
+            where: { name }
+        })
+        return role;
+    }
 }

@@ -15,10 +15,24 @@ export class RoleController {
         }
     }
 
-    async getAllRoles(req: Request, res: Response) {
+    async getAllRoles(_req: Request, res: Response) {
         try {
             const roles = await this.roleService.getAllRoles();
             res.status(200).json(roles);
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
+
+    async getRoleByName(req: Request, res: Response) {
+        try {
+            const findedRole: RoleInterface = req.body;
+            const role = await this.roleService.findRoleByName(findedRole.name);
+            if (!role) {
+                res.status(404).json({ message: "Role not found" });
+            } else {
+                res.status(200).json(role);
+            }
         } catch (error: any) {
             res.status(500).json({ message: error.message });
         }

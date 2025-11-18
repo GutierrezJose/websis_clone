@@ -6,5 +6,6 @@ const roleController = new RoleController();
 
 router.post('/roles', (req, res) => roleController.createRole(req, res));
 router.get('/roles', (req, res) => roleController.getAllRoles(req, res));
+router.post('/roles/name', (req, res) => roleController.getRoleByName(req, res));
 
 export default router;

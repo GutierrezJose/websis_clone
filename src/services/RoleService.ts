@@ -22,4 +22,14 @@ export class RoleService {
             return rolesDTO;
         }
     }
+
+    async findRoleByName(name: string) {
+        const role = await this.rolRepository.findRoleByName(name);
+        if(!role) {
+            return null;
+        } else {
+            const roleDTO = new RoleDTO(role.id_rol, role.name);
+            return roleDTO;
+        }
+    }
 }
