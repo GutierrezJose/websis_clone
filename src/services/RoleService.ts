@@ -6,9 +6,17 @@ export class RoleService {
     private rolRepository = new RolRepository();
 
     async createRole(role: RoleInterface) {
-        const newRole = await this.rolRepository.createRole(role.name);
-        return new RoleDTO(newRole.id_rol, newRole.name);
+        const isExistingRole = await this.rolRepository.findRoleByName(role.name);
+        if(isExistingRole) {
+            throw new Error('Role already exists');
+        } else {
+            role.name = role.name.trim().toLocaleLowerCase();
+            const newRole = await this.rolRepository.createRole(role.name);
+            const roleDTO = new RoleDTO(newRole.id_rol, newRole.name);
+            return roleDTO;
+        }
     }
+
 
     async getAllRoles() {
         const roles = await this.rolRepository.getAllRoles();
@@ -45,7 +53,7 @@ export class RoleService {
 
     async deleteRole(idRol: number) {
         const role = await this.rolRepository.findRoleById(idRol);
-        if(role) {
+        if (role) {
             await this.rolRepository.deleteRole(idRol);
         } else {
             throw new Error('Role not found');
