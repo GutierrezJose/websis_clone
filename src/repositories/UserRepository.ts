@@ -8,6 +8,7 @@ export class UserRepository {
     }
 
     async createUser(data: UserInterface) {
+        const roles: number[] = data.role;
         const newUser: user = await prisma.user.create({
             data: {
                 username: data.username,
@@ -20,12 +21,14 @@ export class UserRepository {
                 phone: data.phone,
             }
         })
-        await prisma.user_rol.create({
-            data: {
-                id_user: newUser.id_user,
-                id_rol: data.role
-            }
-        })
+        for (const role of roles) {
+            await prisma.user_rol.create({
+                data: {
+                    id_user: newUser.id_user,
+                    id_rol: role
+                }
+            })
+        }
         return newUser;
     }
 }

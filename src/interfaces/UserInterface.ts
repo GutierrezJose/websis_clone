@@ -7,5 +7,5 @@ export interface UserInterface {
     birthdate: Date;
     address: string;
     phone: string;
-    role: number;
+    role: number[];
 }
