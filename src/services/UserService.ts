@@ -30,4 +30,12 @@ export class UserService {
             throw new Error('User not found');
         }
     }
+
+    async deleteUser(id: number) {
+        if(this.userRepository.findUserById(id) != null) {
+            await this.userRepository.deleteUser(id);
+        } else {
+            throw new Error('User not found');
+        }
+    }
 }

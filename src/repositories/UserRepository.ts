@@ -47,4 +47,14 @@ export class UserRepository {
             data : data
         })
     }
+
+    async deleteUser(id: number) {
+        await prisma.user_rol.deleteMany({
+            where: {id_user: id}
+        })
+
+        return await prisma.user.delete({
+            where: { id_user: id }
+        })
+    }
 }
