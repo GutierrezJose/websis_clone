@@ -3,6 +3,7 @@ import { UserRepository } from "../repositories/UserRepository";
 import { UserDTO } from "../dto/UserDTO";
 import type { UserInterface } from "../interfaces/UserInterface";
 import bcrypt from 'bcryptjs';
+import type { UserUpdateInterface } from "../interfaces/UserUpdateInterface";
 export class UserService {
     private userRepository = new UserRepository();
 
@@ -20,5 +21,13 @@ export class UserService {
         const newUser = await this.userRepository.createUser(user);
         const birthDate = newUser.birthdate?.toISOString().split('T')[0];
         return new UserDTO(newUser.id_user, newUser.username, newUser.first_name ?? '', newUser.last_name ?? '', newUser.ci, birthDate ?? '', newUser.address ?? '', newUser.phone ?? '');
+    }
+
+    async updateUser (id: number, updateData: UserUpdateInterface) {
+        if(this.userRepository.findUserById(id) != null) {
+            await this.userRepository.updateUser(id, updateData);
+        } else {
+            throw new Error('User not found');
+        }
     }
 }

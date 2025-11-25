@@ -1,6 +1,8 @@
 import type { user } from '../generated/prisma/client';
 import type { UserInterface } from '../interfaces/UserInterface';
+import type { UserUpdateInterface } from '../interfaces/UserUpdateInterface';
 import { prisma } from '../utils/prismaclient';
+import { mapUpdateDataToPrisma } from '../utils/updateUserUtil';
 
 export class UserRepository {
     async findUsers() {
@@ -30,5 +32,19 @@ export class UserRepository {
             })
         }
         return newUser;
+    }
+
+    async findUserById(id: number) {
+        return await prisma.user.findUnique({
+            where: { id_user: id }
+        })
+    }
+
+    async updateUser(id: number, updateData: UserUpdateInterface) {
+        const data = mapUpdateDataToPrisma(updateData);
+        return await prisma.user.update({
+            where: { id_user: id},
+            data : data
+        })
     }
 }

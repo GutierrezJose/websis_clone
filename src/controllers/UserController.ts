@@ -1,4 +1,5 @@
 import type { UserInterface } from "../interfaces/UserInterface";
+import type { UserUpdateInterface } from "../interfaces/UserUpdateInterface";
 import { UserService } from "../services/UserService";
 import type { Request, Response } from "express";
 
@@ -21,6 +22,17 @@ export class UserController {
             userData.birthdate = birthDate;
             const newUser = await this.userService.createUser(userData);
             res.status(201).json(newUser);
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
+
+    async updateUser(req: Request, res: Response) {
+        try {
+            const userId: number = Number(req.params.id);
+            const updateData: UserUpdateInterface = req.body;
+            await this.userService.updateUser(userId, updateData);
+            res.status(200).json({ message: 'User updated successfully' });
         } catch (error: any) {
             res.status(500).json({ message: error.message });
         }
