@@ -5,6 +5,7 @@ import type { UserInterface } from "../interfaces/UserInterface";
 import bcrypt from 'bcryptjs';
 import type { UserUpdateInterface } from "../interfaces/UserUpdateInterface";
 import { RolRepository } from "../repositories/RolRepository";
+import { UserRoleRepository } from "../repositories/UserRoleRepository";
 
 export class UserService {
     private userRepository = new UserRepository();
@@ -49,5 +50,11 @@ export class UserService {
         } else {
             throw new Error('User not found');
         }
+    }
+
+    async getUsersWithRoles() {
+        const userRoleRepository = new UserRoleRepository();
+        const users = await userRoleRepository.getUsersWithRoles();
+        return users;
     }
 }

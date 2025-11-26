@@ -47,4 +47,13 @@ export class UserController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    async getUsersWithRoles(_req: Request, res: Response) {
+        try {
+            const usersWithRoles = await this.userService.getUsersWithRoles();
+            res.status(200).json(usersWithRoles);
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
