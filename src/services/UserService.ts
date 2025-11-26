@@ -16,11 +16,15 @@ export class UserService {
     }
 
     async createUser(user: UserInterface) {
+        if(await this.userRepository.findUserByUsername(user.username) == null) {
         const passwordHashed = await bcrypt.hashSync(user.password, 10);
         user.password = passwordHashed;
         const newUser = await this.userRepository.createUser(user);
         const birthDate = newUser.birthdate?.toISOString().split('T')[0];
         return new UserDTO(newUser.id_user, newUser.username, newUser.first_name ?? '', newUser.last_name ?? '', newUser.ci, birthDate ?? '', newUser.address ?? '', newUser.phone ?? '');
+        } else {
+            throw new Error('Username already exists');
+        }
     }
 
     async updateUser (id: number, updateData: UserUpdateInterface) {

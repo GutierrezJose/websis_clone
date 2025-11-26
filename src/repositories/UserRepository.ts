@@ -40,6 +40,12 @@ export class UserRepository {
         })
     }
 
+    async findUserByUsername(username: string) {
+        return await prisma.user.findUnique({
+            where:{username}
+        })
+    }
+
     async updateUser(id: number, updateData: UserUpdateInterface) {
         const data = mapUpdateDataToPrisma(updateData);
         return await prisma.user.update({
