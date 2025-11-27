@@ -57,4 +57,10 @@ export class UserService {
         const users = await userRoleRepository.getUsersWithRoles();
         return users;
     }
+
+    async getUserRoles(userId: number) {
+        const userRoleRepository = new UserRoleRepository();
+        const userRoles = await userRoleRepository.getUserRoles(userId);
+        return userRoles;
+    }
 }

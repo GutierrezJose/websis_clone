@@ -56,4 +56,14 @@ export class UserController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    async getUserRoles(req: Request, res: Response) {
+        try {
+            const userId = Number(req.params.idUser);
+            const userRoles = await this.userService.getUserRoles(userId);
+            res.status(200).json(userRoles);
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
