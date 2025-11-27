@@ -66,4 +66,16 @@ export class UserController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    async assingRolesToUSer(req: Request, res: Response) {
+        try {
+            const userId = Number(req.params.idUser);
+            const roles: Array<number> = req.body.roles;
+            await this.userService.assignRolesToUser(userId, roles);
+            res.status(200).json({ message: 'Roles assigned successfully' });
+        } catch (error: any) {
+             console.log('MURIO BB')
+            res.status(500).json({ message: error.message });
+        }
+    }
 }

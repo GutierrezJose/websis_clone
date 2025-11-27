@@ -10,5 +10,6 @@ import { Router } from "express";
  router.delete('/users/:id', (req, res) => userController.deleteUser(req, res));
  router.get('/users/roles', (req, res) => userController.getUsersWithRoles(req, res));
  router.get('/users/:idUser/roles', (req, res) => userController.getUserRoles(req, res));
+ router.post('/users/:idUser/roles', (req, res) => userController.assingRolesToUSer(req, res));
 
  export default router;

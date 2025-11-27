@@ -63,4 +63,18 @@ export class UserService {
         const userRoles = await userRoleRepository.getUserRoles(userId);
         return userRoles;
     }
+
+    async assignRolesToUser(userId: number, roles: Array<number>) {
+        const userRoleRepository = new UserRoleRepository();
+        if(this.userRepository.findUserById(userId) == null) {
+            throw new Error('User not found');
+        } else {
+            const existingUserRoles = await userRoleRepository.getUserRoleIds(userId);
+            for (const role of roles) {
+                if (!existingUserRoles.includes(role)) {
+                    await userRoleRepository.assignRolesToUser(userId, role);
+                }
+            }
+        }
+    }
 }

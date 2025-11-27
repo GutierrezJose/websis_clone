@@ -17,4 +17,25 @@ export class UserRoleRepository {
                                       `;
                             
     }
+
+    async assignRolesToUser(userId: number, role: number): Promise<void> {
+            await prisma.user_rol.create({
+                data: {
+                    id_user: userId,
+                    id_rol: role
+                }
+            })
+    }
+
+    async getUserRoleIds(userId: number): Promise<Array<number>> {
+        const roles = []
+        const userRoles = await prisma.user_rol.findMany({
+            where: { id_user: userId},
+            select: { id_rol: true }
+        })
+        for (const userRole of userRoles) {
+            roles.push(userRole.id_rol);
+        }
+        return roles;
+    }
 }
