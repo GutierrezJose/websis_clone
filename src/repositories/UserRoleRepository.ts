@@ -38,4 +38,15 @@ export class UserRoleRepository {
         }
         return roles;
     }
+
+    async removeRolesFromUser(userId: number, rolesIds: Array<number>): Promise<void> {
+        for (const roleId of rolesIds) {
+            await prisma.user_rol.deleteMany({
+                where: {
+                    id_user: userId,
+                    id_rol: roleId
+                }
+            })
+        }
+    }
 }

@@ -77,4 +77,20 @@ export class UserService {
             }
         }
     }
+
+    async removeRolesFromUser(userId: number, roles: Array<number>) {
+        const userRoleRepository = new UserRoleRepository();
+        if(this.userRepository.findUserById(userId) == null) {
+            throw new Error('User not found');
+        } else {
+            const existingUserRoles = await userRoleRepository.getUserRoleIds(userId);
+            const newRoles: Array<number> = [];
+            for (const role of roles) {
+                if (existingUserRoles.includes(role)) {
+                    newRoles.push(role);
+                }
+            }
+            await userRoleRepository.removeRolesFromUser(userId, newRoles);
+        }
+    }
 }

@@ -11,5 +11,6 @@ import { Router } from "express";
  router.get('/users/roles', (req, res) => userController.getUsersWithRoles(req, res));
  router.get('/users/:idUser/roles', (req, res) => userController.getUserRoles(req, res));
  router.post('/users/:idUser/roles', (req, res) => userController.assingRolesToUSer(req, res));
+ router.delete('/users/:idUser/roles', (req, res) => userController.removeRolesFromUser(req, res));
 
  export default router;

@@ -78,4 +78,15 @@ export class UserController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    async removeRolesFromUser(req: Request, res: Response) {
+        try {
+            const userId = Number(req.params.idUser);
+            const roles: Array<number> = req.body.roles;
+            await this.userService.removeRolesFromUser(userId, roles);
+            res.status(200).json({ message: 'Roles removed successfully' });
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
