@@ -12,4 +12,8 @@ export class FacultyRepository {
             where: { name: name}
         })
     }    
+
+    async getFaculties() {
+        return await prisma.faculty.findMany();
+    }
 }

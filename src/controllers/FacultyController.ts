@@ -13,4 +13,13 @@ export class FacultyController {
             res.status(400).json({ message: error.message });
         }
     }
+
+    async getFaculties(_req: Request, res: Response) {
+        try {
+            const faculties = await this.facultyService.getFaculties();
+            res.status(200).json(faculties);
+        } catch (error: any) {
+            res.status(400).json({ message: error.message });
+        }
+    }
 }

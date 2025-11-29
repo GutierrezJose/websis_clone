@@ -13,4 +13,11 @@ export class FacultyService {
             return facultyDTO;
         }
     }
+
+    async getFaculties() {
+        const faculties = await this.facultyRepository.getFaculties();
+        const facultiesDTO: FacultyDTO[] = faculties.map(faculty => new FacultyDTO(faculty.id_faculty, faculty.name));
+        return facultiesDTO;
+
+    }
 }
