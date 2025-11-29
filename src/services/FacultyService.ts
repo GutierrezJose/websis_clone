@@ -30,4 +30,13 @@ export class FacultyService {
             return facultyDTO;
         }
     }
+
+    async updateFaculty(idFaculty: number, name: string) {
+        const faculty = await this.facultyRepository.findFacultyById(idFaculty);
+        if (!faculty) {
+            throw new Error('Faculty not found');
+        } else {
+            await this.facultyRepository.updateFaculty(idFaculty, name.trim().toUpperCase());
+        }
+    }
 }

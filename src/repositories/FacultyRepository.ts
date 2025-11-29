@@ -22,4 +22,11 @@ export class FacultyRepository {
             where: { id_faculty: idFaculty}
         })
     }
+
+    async updateFaculty(idFaculty: number, name: string) {
+        await prisma.faculty.update({
+            where: { id_faculty: idFaculty},
+            data: { name: name}
+        })
+    }
 }

@@ -32,4 +32,15 @@ export class FacultyController {
             res.status(400).json({ message: error.message });
         }
     }
+
+    async updateFaculty(req: Request, res: Response) {
+        try {
+            const facultyId = Number(req.params.id);
+            const { name } = req.body;
+            await this.facultyService.updateFaculty(facultyId, name);
+            res.status(200).json({ message: 'Faculty updated successfully' });
+        } catch (error: any) {
+            res.status(400).json({ message: error.message });
+        }
+    }
 }
