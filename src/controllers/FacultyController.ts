@@ -1,0 +1,16 @@
+import type { Request, Response } from "express";
+import { FacultyService } from "../services/FacultyService";
+
+export class FacultyController {
+    private facultyService = new FacultyService();
+
+    async createFaculty(req: Request, res: Response) {
+        try {
+            const { name } = req.body;
+            const newFaculty = await this.facultyService.createFaculty(name);
+            res.status(201).json(newFaculty);
+        } catch (error: any) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+}

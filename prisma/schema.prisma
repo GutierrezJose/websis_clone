@@ -10,7 +10,9 @@ datasource db {
 
 model career {
   id_career      Int              @id @default(autoincrement())
-  name           String           @unique @db.VarChar(100)
+  id_faculty     Int?             @unique(map: "career_name_key")
+  name           String?          @db.VarChar(100)
+  faculty        faculty?         @relation(fields: [id_faculty], references: [id_faculty], onDelete: NoAction, onUpdate: NoAction)
   career_subject career_subject[]
   student_career student_career[]
 }
@@ -109,4 +111,10 @@ model user_rol {
   id_rol      Int
   rol         rol  @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction)
   user        user @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model faculty {
+  id_faculty Int     @id @default(autoincrement())
+  name       String  @unique @db.VarChar(50)
+  career     career?
 }

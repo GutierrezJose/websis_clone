@@ -2,6 +2,7 @@ import express from 'express';
 import 'dotenv/config';
 import UserRoutes from './routes/UserRoutes';
 import RoleRoutes from './routes/RoleRoutes';
+import FacultyRoutes from './routes/FacultyRoutes';
 import AuthenticationRoutes from './routes/AuthenticationRoutes';
 import { authMiddleware } from './middlewares/authMiddleware';
 import { adminMiddleware } from './middlewares/adminMiddleware';
@@ -14,6 +15,7 @@ app.use('/websis/api/auth', AuthenticationRoutes);
 app.use(authMiddleware);
 app.use('/websis/api', adminMiddleware ,UserRoutes);
 app.use('/websis/api', adminMiddleware, RoleRoutes);
+app.use('/websis/api', adminMiddleware, FacultyRoutes)
 app.listen(PORT, () => {
     console.log(`Server is running` );
 } )
