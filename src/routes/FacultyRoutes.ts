@@ -6,5 +6,6 @@ const facultyController = new FacultyController();
 
 router.post('/faculties', (req, res) => facultyController.createFaculty(req, res));
 router.get('/faculties', (req, res) => facultyController.getFaculties(req, res));
+router.get('/faculties/:id', (req, res) => facultyController.getFacultyById(req, res));
 
 export default router;

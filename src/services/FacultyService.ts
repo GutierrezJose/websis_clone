@@ -20,4 +20,14 @@ export class FacultyService {
         return facultiesDTO;
 
     }
+
+    async getFacultyById(idFaculty: number) {
+        const faculty = await this.facultyRepository.findFacultyById(idFaculty);
+        if (!faculty) {
+            throw new Error('Faculty not found');
+        } else {
+            const facultyDTO = new FacultyDTO(faculty.id_faculty, faculty.name);
+            return facultyDTO;
+        }
+    }
 }

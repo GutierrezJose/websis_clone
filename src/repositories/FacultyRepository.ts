@@ -16,4 +16,10 @@ export class FacultyRepository {
     async getFaculties() {
         return await prisma.faculty.findMany();
     }
+
+    async findFacultyById(idFaculty: number) {
+        return await prisma.faculty.findUnique({
+            where: { id_faculty: idFaculty}
+        })
+    }
 }

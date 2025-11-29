@@ -22,4 +22,14 @@ export class FacultyController {
             res.status(400).json({ message: error.message });
         }
     }
+
+    async getFacultyById(req: Request, res: Response) {
+        try {
+            const facultyId = Number(req.params.id);
+            const faculty = await this.facultyService.getFacultyById(facultyId);
+            res.status(200).json(faculty);
+        } catch (error: any) {
+            res.status(400).json({ message: error.message });
+        }
+    }
 }
