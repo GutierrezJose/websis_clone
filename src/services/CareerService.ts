@@ -2,6 +2,7 @@ import { CareerDTO } from "../dto/CareerDTO";
 import type { CareerInterface } from "../interfaces/CareerInterface";
 import { CareerRepository } from "../repositories/CareerRepository";
 import { FacultyRepository } from "../repositories/FacultyRepository";
+import type { CareerUpdateInterface } from "../interfaces/CareerUpdateInterface";
 
 export class CareerService {
     private careerRepository = new CareerRepository();
@@ -27,5 +28,16 @@ export class CareerService {
         const careers = await this.careerRepository.getCareers();
         const careerDTOs = careers.map(career => new CareerDTO(career.id_career, career.name ?? '', career.id_faculty));
         return careerDTOs;
+    }
+
+    async updateCareer(id: number, updateCareerData: CareerUpdateInterface) {
+        const career = await this.careerRepository.findCareerById(id);
+        if (!career) {
+            throw new Error('Career not found');        
+        }
+        if (updateCareerData.idFaculty !== undefined && !(await this.facultyRepository.findFacultyById(updateCareerData.idFaculty))) {
+            throw new Error('Faculty not found');
+        }
+        await this.careerRepository.updateCareer(id, updateCareerData);
     }
 }
