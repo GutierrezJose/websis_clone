@@ -29,4 +29,10 @@ export class FacultyRepository {
             data: { name: name}
         })
     }
+
+    async deleteFaculty(idFaculty: number) {
+        await prisma.faculty.delete({
+            where :{ id_faculty: idFaculty}
+        })
+    }
 }

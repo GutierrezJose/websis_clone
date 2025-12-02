@@ -39,4 +39,13 @@ export class FacultyService {
             await this.facultyRepository.updateFaculty(idFaculty, name.trim().toUpperCase());
         }
     }
+
+    async deleteFaculty(idFaculty: number) {
+        const faculty = await this.facultyRepository.findFacultyById(idFaculty);
+        if(!faculty) {
+            throw new Error('Faculty not found');
+        } else {
+            await this.facultyRepository.deleteFaculty(idFaculty);
+        }
+    }
 }

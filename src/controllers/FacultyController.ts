@@ -43,4 +43,14 @@ export class FacultyController {
             res.status(400).json({ message: error.message });
         }
     }
+
+    async deleteFaculty(req: Request, res: Response) {
+        try {
+            const facultyId = Number(req.params.id);
+            await this.facultyService.deleteFaculty(facultyId);
+            res.status(200).json({ message: 'Faculty deleted successfully' });
+        } catch (error: any) {
+            res.status(400).json({ message: error.message });
+        }
+    }
 }
