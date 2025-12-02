@@ -22,4 +22,10 @@ export class CareerService {
         const careerDTO = new CareerDTO(career.id_career, career.name ?? '', career.id_faculty);
         return careerDTO;
     }
+
+    async getCareers() {
+        const careers = await this.careerRepository.getCareers();
+        const careerDTOs = careers.map(career => new CareerDTO(career.id_career, career.name ?? '', career.id_faculty));
+        return careerDTOs;
+    }
 }

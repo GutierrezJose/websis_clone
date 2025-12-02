@@ -16,4 +16,8 @@ export class CareerRepository {
             where: { name }
         })
     }
+
+    async getCareers() {
+        return await prisma.career.findMany();
+    }
 }

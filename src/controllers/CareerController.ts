@@ -10,8 +10,17 @@ export class CareerController {
             const newCareer: CareerInterface = req.body;
             const createdCareer = await this.careerService.createCareer(newCareer);
             res.status(201).json(createdCareer);
-        } catch (error) {
-            res.status(400).json({ error: (error as Error).message });
+        } catch (error: any) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+
+    async getCareers(_req: Request, res: Response) {
+        try {
+            const careers = await this.careerService.getCareers();
+            res.status(200).json(careers);
+        } catch (error: any) {
+            res.status(400).json({ error: error.message });
         }
     }
 }
