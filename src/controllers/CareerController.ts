@@ -35,4 +35,14 @@ export class CareerController {
             res.status(400).json({ error: error.message });
         }
     }
+
+    async deleteCareer(req: Request, res: Response) {
+        try {
+            const id = Number(req.params.id);
+            await this.careerService.deleteCareer(id);
+            res.status(200).json({ message: 'Career deleted successfully' });
+        } catch (error: any) {
+            res.status(400).json({ error: error.message });
+        }
+    }
 }

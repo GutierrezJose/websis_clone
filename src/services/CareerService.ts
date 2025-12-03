@@ -40,4 +40,13 @@ export class CareerService {
         }
         await this.careerRepository.updateCareer(id, updateCareerData);
     }
+
+    async deleteCareer(id: number) {
+        const career = await this.careerRepository.findCareerById(id);
+        if (!career) {
+            throw new Error('Career not found');
+        } else {
+            await this.careerRepository.deleteCareer(id);
+        }
+    }
 }

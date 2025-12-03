@@ -37,4 +37,10 @@ export class CareerRepository {
             data: data
         })
     }
+
+    async deleteCareer(id: number) {
+        return await prisma.career.delete({
+            where: { id_career: id }
+        })
+    }
 }
