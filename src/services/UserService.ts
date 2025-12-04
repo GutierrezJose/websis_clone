@@ -61,7 +61,7 @@ export class UserService {
     async getUserRoles(userId: number) {
         const userRoleRepository = new UserRoleRepository();
         const userRoles = await userRoleRepository.getUserRoles(userId);
-        return userRoles;
+        return {roles: userRoles};
     }
 
     async assignRolesToUser(userId: number, roles: Array<number>) {

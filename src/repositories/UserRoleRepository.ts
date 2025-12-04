@@ -10,12 +10,16 @@ export class UserRoleRepository {
     }
 
     async getUserRoles(userId: number): Promise<Array<string>> {
-        return await prisma.$queryRaw`SELECT r.name
+         const roles: Array<{name: string}> =  await prisma.$queryRaw`SELECT r.name
                                       FROM user_rol ur
                                       JOIN rol r ON ur.id_rol = r.id_rol
                                       WHERE id_user = ${userId}
                                       `;
-                            
+        const roleNames: Array<string> = [];
+        for (const role of roles) {
+            roleNames.push(role.name);
+        }
+        return roleNames;
     }
 
     async assignRolesToUser(userId: number, role: number): Promise<void> {

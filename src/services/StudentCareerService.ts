@@ -1,0 +1,25 @@
+import { StudentCareerRepository } from "../repositories/StudentCareerRepository";
+import { CareerRepository } from "../repositories/CareerRepository";
+import { UserRoleRepository } from "../repositories/UserRoleRepository";
+import type { StudentEnrollmentCareerInterface } from "../interfaces/StudentEnrollmentCareerInterface";
+
+export class StudentCareerService {
+    private studentCareerRepository = new StudentCareerRepository();
+    private careerRepository = new CareerRepository();
+    private userRoleRepository = new UserRoleRepository();
+
+    async enrollStudentInCareer(enrollmentStudent: StudentEnrollmentCareerInterface) {
+        if(!await this.careerRepository.findCareerById(enrollmentStudent.idCareer)) {
+            throw new Error('Career not found');
+        }
+
+        if(await this.userRoleRepository.getUserRoles(enrollmentStudent.idStudent).then(roles => roles.includes('student')) === false) {
+            throw new Error('User is not a student');
+        }
+
+        if(await this.studentCareerRepository.findEnrollmentByStudentAndCareer(enrollmentStudent)) {
+            throw new Error('Student already enrolled in this career');
+        }
+        await this.studentCareerRepository.enrollStudentInCareer(enrollmentStudent);                
+    }
+}
