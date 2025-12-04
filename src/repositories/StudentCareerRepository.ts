@@ -19,4 +19,16 @@ export class StudentCareerRepository {
             }
         })
     }
+
+    async findCareersNamesEnrolledByStudent(idStudent: number) {
+        const careers: Array<{name: string}> = await prisma.$queryRaw`SELECT c."name"
+                                        FROM student_enrollment_career se
+                                        JOIN career c ON c.id_career = se.id_career
+                                        WHERE se.id_user = ${idStudent}`;
+        const careerNames: Array<string> = [];
+        for (const career of careers) {
+            careerNames.push(career.name);
+        }
+        return careerNames;
+    }
 }

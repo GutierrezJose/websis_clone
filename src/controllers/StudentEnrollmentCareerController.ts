@@ -14,4 +14,14 @@ export class StudentEnrollmentCareerController{
             res.status(400).json({ error: error.message });
         }
     }
+
+    async getCareersNamesEnrolledByStudent(req: Request, res: Response) {
+        try {
+            const idStudent = Number(req.params.idStudent);
+            const careers = await this.studentCareerService.getCareersNamesEnrolledByStudent(idStudent);
+            res.status(200).json(careers);
+        } catch (error: any) {
+            res.status(400).json({ error: error.message });
+        }
+    }
 }

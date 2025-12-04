@@ -9,17 +9,31 @@ export class StudentCareerService {
     private userRoleRepository = new UserRoleRepository();
 
     async enrollStudentInCareer(enrollmentStudent: StudentEnrollmentCareerInterface) {
-        if(!await this.careerRepository.findCareerById(enrollmentStudent.idCareer)) {
+        if (!await this.careerRepository.findCareerById(enrollmentStudent.idCareer)) {
             throw new Error('Career not found');
         }
 
-        if(await this.userRoleRepository.getUserRoles(enrollmentStudent.idStudent).then(roles => roles.includes('student')) === false) {
+        if (await this.userRoleRepository.getUserRoles(enrollmentStudent.idStudent).then(roles => roles.includes('student')) === false) {
             throw new Error('User is not a student');
         }
 
-        if(await this.studentCareerRepository.findEnrollmentByStudentAndCareer(enrollmentStudent)) {
+        if (await this.studentCareerRepository.findEnrollmentByStudentAndCareer(enrollmentStudent)) {
             throw new Error('Student already enrolled in this career');
         }
-        await this.studentCareerRepository.enrollStudentInCareer(enrollmentStudent);                
+        await this.studentCareerRepository.enrollStudentInCareer(enrollmentStudent);
+    }
+
+    async getCareersNamesEnrolledByStudent(idStudent: number) {
+        const isStudent = await this.userRoleRepository.getUserRoles(idStudent);
+        if (!isStudent.includes('student')) {
+            throw new Error('User is not a student');
+        } else {
+            const careers = await this.studentCareerRepository.findCareersNamesEnrolledByStudent(idStudent);
+            if (careers.length > 0) {
+                return { careers: careers };
+            } else {
+                throw new Error('No careers found for this student');
+            }
+        }
     }
 }
