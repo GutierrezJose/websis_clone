@@ -31,4 +31,13 @@ export class StudentCareerRepository {
         }
         return careerNames;
     }
+
+    async removeEnrollmentByStudentAndCareer(enrollmentStudent: StudentEnrollmentCareerInterface) {
+        return await prisma.student_enrollment_career.deleteMany({
+            where: {
+                id_user: enrollmentStudent.idStudent,
+                id_career: enrollmentStudent.idCareer
+            }
+        })
+    }
 }

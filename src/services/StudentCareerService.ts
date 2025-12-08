@@ -1,4 +1,4 @@
-import { StudentCareerRepository } from "../repositories/StudentCareerRepository";
+import { StudentCareerRepository } from "../repositories/StudentEnrollmentCareerRepository";
 import { CareerRepository } from "../repositories/CareerRepository";
 import { UserRoleRepository } from "../repositories/UserRoleRepository";
 import type { StudentEnrollmentCareerInterface } from "../interfaces/StudentEnrollmentCareerInterface";
@@ -34,6 +34,15 @@ export class StudentCareerService {
             } else {
                 throw new Error('No careers found for this student');
             }
+        }
+    }
+
+    async removeEnrollmentByStudentAndCareer(enrollmentStudent: StudentEnrollmentCareerInterface) {
+        const enrollment = await this.studentCareerRepository.findEnrollmentByStudentAndCareer(enrollmentStudent);
+        if (!enrollment) {
+            throw new Error('Enrollment not found for the given student and career');
+        } else {
+            await this.studentCareerRepository.removeEnrollmentByStudentAndCareer(enrollmentStudent);
         }
     }
 }

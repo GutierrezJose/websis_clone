@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { StudentCareerService } from "../services/StudentCareerService";
 import type { StudentEnrollmentCareerInterface } from "../interfaces/StudentEnrollmentCareerInterface";
 
-export class StudentEnrollmentCareerController{
+export class StudentEnrollmentCareerController {
     private studentCareerService = new StudentCareerService();
 
     async enrollStudentInCareer(req: Request, res: Response) {
@@ -10,7 +10,7 @@ export class StudentEnrollmentCareerController{
             const studentEnrollment: StudentEnrollmentCareerInterface = req.body;
             await this.studentCareerService.enrollStudentInCareer(studentEnrollment);
             res.status(201).json({ message: 'Student enrolled in career successfully' });
-        }  catch (error: any) {
+        } catch (error: any) {
             res.status(400).json({ error: error.message });
         }
     }
@@ -20,6 +20,21 @@ export class StudentEnrollmentCareerController{
             const idStudent = Number(req.params.idStudent);
             const careers = await this.studentCareerService.getCareersNamesEnrolledByStudent(idStudent);
             res.status(200).json(careers);
+        } catch (error: any) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+
+    async removeEnrollmentByStudentAndCareer(req: Request, res: Response) {
+        try {
+            const studentId = Number(req.params.idStudent);
+            const careerId = Number(req.params.idCareer);
+            const enrollmentStudent: StudentEnrollmentCareerInterface = {
+                idStudent: studentId,
+                idCareer: careerId
+            }
+            await this.studentCareerService.removeEnrollmentByStudentAndCareer(enrollmentStudent);
+            res.status(200).json({ message: 'Enrollment removed successfully' });
         } catch (error: any) {
             res.status(400).json({ error: error.message });
         }
