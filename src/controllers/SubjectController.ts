@@ -14,4 +14,13 @@ export class SubjectController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    async getAllSubjects(_req: Request, res: Response) {
+        try {
+            const subjects = await this.subjectService.getAllSubjects();
+            res.status(200).json(subjects);
+        } catch (error: any) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }

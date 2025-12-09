@@ -9,4 +9,8 @@ export class SubjectRepository {
             }
         })
     }
+
+    async getAllSubjects() {
+        return await prisma.subject.findMany();
+    }
 }

@@ -10,4 +10,10 @@ export class SubjectService {
         const subjectDTO = new SubjectDTO(subject.id_subject, subject.name);
         return subjectDTO;
     }
+
+    async getAllSubjects() {
+        const subjects = await this.subjectRepository.getAllSubjects();
+        const subjectDTOs = subjects.map(subject => new SubjectDTO(subject.id_subject, subject.name));
+        return subjectDTOs;
+    }
 }
