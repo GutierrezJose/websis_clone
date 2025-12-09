@@ -34,4 +34,14 @@ export class SubjectController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    async deleteSubject(req: Request, res: Response) {
+        try {
+            const subjectId = Number(req.params.id);
+            await this.subjectService.deleteSubject(subjectId);
+            res.status(200).json({ message: 'Subject deleted successfully' });
+        } catch (error: any) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }

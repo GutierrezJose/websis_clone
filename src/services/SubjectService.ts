@@ -24,4 +24,12 @@ export class SubjectService {
             throw new Error('Subject not found');
         }
     }
+
+    async deleteSubject(id: number) {
+        if(await this.subjectRepository.getSubjectById(id)) {
+            await this.subjectRepository.deleteSubject(id);
+        } else {
+            throw new Error('Subject not found');
+        }
+    }
 }

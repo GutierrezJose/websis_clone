@@ -26,4 +26,10 @@ export class SubjectRepository {
             data: updateData
         })
     }
+
+    async deleteSubject(id: number) {
+        return await prisma.subject.delete({
+            where: {id_subject: id }
+        })
+    }
 }
