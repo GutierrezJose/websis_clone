@@ -5,6 +5,7 @@ import RoleRoutes from './routes/RoleRoutes';
 import FacultyRoutes from './routes/FacultyRoutes';
 import CareerRoutes from './routes/CareerRoutes';
 import StudentEnrollmentRoutes from './routes/StudentEnrollmentCareer';
+import SubjectRoutes from './routes/SubjectRoutes';
 import AuthenticationRoutes from './routes/AuthenticationRoutes';
 import { authMiddleware } from './middlewares/authMiddleware';
 import { adminMiddleware } from './middlewares/adminMiddleware';
@@ -20,6 +21,7 @@ app.use('/websis/api', adminMiddleware, RoleRoutes);
 app.use('/websis/api', adminMiddleware, FacultyRoutes)
 app.use('/websis/api', adminMiddleware, CareerRoutes);
 app.use('/websis/api', adminMiddleware, StudentEnrollmentRoutes);
+app.use('/websis/api', adminMiddleware, SubjectRoutes);
 app.listen(PORT, () => {
     console.log(`Server is running` );
 } )
