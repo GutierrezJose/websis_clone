@@ -16,4 +16,12 @@ export class SubjectService {
         const subjectDTOs = subjects.map(subject => new SubjectDTO(subject.id_subject, subject.name));
         return subjectDTOs;
     }
+
+    async updateSubject(id: number, updateData: SubjectInterface) {
+        if(await this.subjectRepository.getSubjectById(id)) {
+            await this.subjectRepository.updateSubject(id, updateData);
+        } else {
+            throw new Error('Subject not found');
+        }
+    }
 }

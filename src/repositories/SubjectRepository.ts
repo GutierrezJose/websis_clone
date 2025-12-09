@@ -13,4 +13,17 @@ export class SubjectRepository {
     async getAllSubjects() {
         return await prisma.subject.findMany();
     }
+
+    async getSubjectById(id: number) {
+        return await prisma.subject.findUnique({
+            where: { id_subject: id }
+        })
+    }
+
+    async updateSubject(id: number, updateData: SubjectInterface) {
+        return await prisma.subject.update({
+            where: { id_subject: id },
+            data: updateData
+        })
+    }
 }

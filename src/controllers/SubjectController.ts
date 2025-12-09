@@ -23,4 +23,15 @@ export class SubjectController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    async updateSubject(req: Request, res: Response) {
+        try {
+            const subjectId: number = Number(req.params.id);
+            const updateData: SubjectInterface = req.body;
+            await this.subjectService.updateSubject(subjectId, updateData);
+            res.status(200).json({ message: 'Subject updated successfully' });
+        } catch (error: any) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
