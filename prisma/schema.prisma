@@ -22,11 +22,13 @@ model career_subject {
   id_career                                    Int?
   id_subject                                   Int?
   prerequisite                                 Int?
-  level                                        String                       @db.VarChar(1)
+  level                                        String?                      @db.VarChar(1)
   elective                                     Boolean?
   career                                       career?                      @relation(fields: [id_career], references: [id_career], onDelete: NoAction, onUpdate: NoAction)
   subject_career_subject_id_subjectTosubject   subject?                     @relation("career_subject_id_subjectTosubject", fields: [id_subject], references: [id_subject], onDelete: NoAction, onUpdate: NoAction)
-  subject_career_subject_prerequisiteTosubject subject?                     @relation("career_subject_prerequisiteTosubject", fields: [prerequisite], references: [id_subject], onDelete: NoAction, onUpdate: NoAction, map: "career_subject_requirement_fkey")
+  subject_career_subject_prerequisiteTosubject subject?                     @relation("career_subject_prerequisiteTosubject", fields: [prerequisite], references: [id_subject], onDelete: NoAction, onUpdate: NoAction)
+  group                                        group[]
+  professor_career_subject                     professor_career_subject[]
   student_enrollment_subject                   student_enrollment_subject[]
 }
 
@@ -47,16 +49,6 @@ model period {
   student_enrollment_subject student_enrollment_subject[]
 }
 
-model professor_subject {
-  id_professor_subject Int      @id(map: "user_subject_pkey") @default(autoincrement())
-  id_user              Int?
-  id_subject           Int?
-  id_group             Int?
-  group                group?   @relation(fields: [id_group], references: [id_group], onDelete: NoAction, onUpdate: NoAction)
-  subject              subject? @relation(fields: [id_subject], references: [id_subject], onDelete: NoAction, onUpdate: NoAction, map: "user_subject_id_subject_fkey")
-  user                 user?    @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "user_subject_id_user_fkey")
-}
-
 model rol {
   id_rol   Int        @id @default(autoincrement())
   name     String     @unique @db.VarChar(30)
@@ -64,12 +56,10 @@ model rol {
 }
 
 model subject {
-  id_subject                                          Int                 @id @default(autoincrement())
-  name                                                String              @unique @db.VarChar(255)
-  career_subject_career_subject_id_subjectTosubject   career_subject[]    @relation("career_subject_id_subjectTosubject")
-  career_subject_career_subject_prerequisiteTosubject career_subject[]    @relation("career_subject_prerequisiteTosubject")
-  group                                               group[]
-  professor_subject                                   professor_subject[]
+  id_subject                                          Int              @id @default(autoincrement())
+  name                                                String           @unique @db.VarChar(255)
+  career_subject_career_subject_id_subjectTosubject   career_subject[] @relation("career_subject_id_subjectTosubject")
+  career_subject_career_subject_prerequisiteTosubject career_subject[] @relation("career_subject_prerequisiteTosubject")
 }
 
 model user {
@@ -82,7 +72,7 @@ model user {
   birthdate                  DateTime?                    @db.Date
   address                    String?                      @db.VarChar(255)
   phone                      String?                      @db.VarChar(50)
-  professor_subject          professor_subject[]
+  professor_career_subject   professor_career_subject[]
   student_enrollment_career  student_enrollment_career[]
   student_enrollment_subject student_enrollment_subject[]
   user_rol                   user_rol[]
@@ -138,11 +128,10 @@ model classroom {
 
 model group {
   id_group                   Int                          @id @default(autoincrement())
-  id_subject                 Int?
-  subject                    subject?                     @relation(fields: [id_subject], references: [id_subject], onDelete: NoAction, onUpdate: NoAction)
+  id_career_subject          Int?
+  career_subject             career_subject?              @relation(fields: [id_career_subject], references: [id_career_subject], onDelete: NoAction, onUpdate: NoAction)
   group_class_schedule       group_class_schedule[]
   group_classroom            group_classroom[]
-  professor_subject          professor_subject[]
   student_enrollment_subject student_enrollment_subject[]
 }
 
@@ -160,4 +149,12 @@ model group_classroom {
   id_classroom       Int?
   classroom          classroom? @relation(fields: [id_classroom], references: [id_classroom], onDelete: NoAction, onUpdate: NoAction)
   group              group?     @relation(fields: [id_group], references: [id_group], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model professor_career_subject {
+  id_professor_subject Int             @id(map: "user_subject_pkey") @default(autoincrement())
+  id_user              Int?
+  id_career_subject    Int?
+  career_subject       career_subject? @relation(fields: [id_career_subject], references: [id_career_subject], onDelete: NoAction, onUpdate: NoAction)
+  user                 user?           @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "user_subject_id_user_fkey")
 }
