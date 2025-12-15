@@ -33,5 +33,11 @@ export class CareerSubjectRepository {
             }
         })
     }
+
+    async getAllCareersHavingSameSubject(idSubject: number) {
+        return await prisma.career_subject.findMany({
+            where: { id_subject: idSubject }
+        })
+    }
 }
 

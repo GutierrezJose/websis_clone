@@ -19,13 +19,13 @@ model career {
 
 model career_subject {
   id_career_subject                            Int                          @id @default(autoincrement())
-  id_career                                    Int?
-  id_subject                                   Int?
+  id_career                                    Int
+  id_subject                                   Int
   prerequisite                                 Int?
-  level                                        String?                      @db.VarChar(1)
-  elective                                     Boolean?
-  career                                       career?                      @relation(fields: [id_career], references: [id_career], onDelete: NoAction, onUpdate: NoAction)
-  subject_career_subject_id_subjectTosubject   subject?                     @relation("career_subject_id_subjectTosubject", fields: [id_subject], references: [id_subject], onDelete: NoAction, onUpdate: NoAction)
+  level                                        String                       @db.VarChar(1)
+  elective                                     Boolean
+  career                                       career                       @relation(fields: [id_career], references: [id_career], onDelete: NoAction, onUpdate: NoAction)
+  subject_career_subject_id_subjectTosubject   subject                      @relation("career_subject_id_subjectTosubject", fields: [id_subject], references: [id_subject], onDelete: NoAction, onUpdate: NoAction)
   subject_career_subject_prerequisiteTosubject subject?                     @relation("career_subject_prerequisiteTosubject", fields: [prerequisite], references: [id_subject], onDelete: NoAction, onUpdate: NoAction)
   group                                        group[]
   professor_career_subject                     professor_career_subject[]

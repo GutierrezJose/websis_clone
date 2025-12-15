@@ -5,5 +5,6 @@ const router = Router();
 const careerSubjectController = new CareerSubjectController();
 
 router.post('/careers/assign-subject', (req, res) => careerSubjectController.assignSubjectToCareer(req, res));
+router.get('/subject/:idSubject/careers', (req, res) => careerSubjectController.getAllCareersHavingSameSubject(req, res));
 
 export default router;
