@@ -32,4 +32,17 @@ export class CareerSubjectService {
             return careersDTos;
         }
     }
+
+    async getAllSubjectsAssignedToCareer(idCareer: number) {
+        const subjects = await this.careerSubjectRepository.getAllSubjectsAssignedToCareer(idCareer);
+        if (subjects.length === 0) {
+            throw new Error('No subjects found for the specified career');
+        } else {
+            const subjectsDTos: Array<CareerSubjectDTO> = [];
+            for (const subject of subjects) {
+                subjectsDTos.push(new CareerSubjectDTO(subject.id_career_subject, subject.id_career, subject.id_subject, subject.level, subject.elective, subject.prerequisite || undefined))
+            }
+            return subjectsDTos;
+        }
+    }
 }

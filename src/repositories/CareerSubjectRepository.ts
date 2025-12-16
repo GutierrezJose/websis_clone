@@ -39,5 +39,12 @@ export class CareerSubjectRepository {
             where: { id_subject: idSubject }
         })
     }
+
+    async getAllSubjectsAssignedToCareer(idCareer: number) {
+        return await prisma.career_subject.findMany({
+            where: { id_career: idCareer },
+            orderBy: { level: 'asc' }
+        })
+    }
 }
 

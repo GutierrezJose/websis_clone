@@ -24,4 +24,14 @@ export class CareerSubjectController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    async getAllSubjectsAssignedToCareer(req: Request, res: Response) {
+        try {
+            const idCareer = Number(req.params.idCareer);
+            const subjects = await this.careerSubjectService.getAllSubjectsAssignedToCareer(idCareer);
+            res.status(200).json(subjects);
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
