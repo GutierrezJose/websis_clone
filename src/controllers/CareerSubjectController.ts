@@ -34,4 +34,15 @@ export class CareerSubjectController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    async deleteSubjectFromCareer(req: Request, res: Response) {
+        try {
+            const idCareer = Number(req.params.idCareer);
+            const idSubject = Number(req.params.idSubject);
+            await this.careerSubjectService.deleteSubjectFromCareer(idCareer, idSubject);
+            res.status(200).json({ message: 'Subject removed from career successfully' });
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }

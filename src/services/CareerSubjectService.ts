@@ -45,4 +45,13 @@ export class CareerSubjectService {
             return subjectsDTos;
         }
     }
+
+    async deleteSubjectFromCareer(idCareer: number, idSubject: number) {
+        const assigment = await this.careerSubjectRepository.findSubjectAndCareerAssignment(idCareer, idSubject);
+        if (!assigment) {
+            throw new Error('The subject is not assigned to the specified career');
+        } else {
+            await this.careerSubjectRepository.removeSubjectFromCareer(idCareer, idSubject);
+        }
+    }
 }

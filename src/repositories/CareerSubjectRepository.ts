@@ -46,5 +46,14 @@ export class CareerSubjectRepository {
             orderBy: { level: 'asc' }
         })
     }
+
+    async removeSubjectFromCareer(idCareer: number, idSubject: number) {
+        return await prisma.career_subject.deleteMany({
+            where: {
+                id_career: idCareer,
+                id_subject: idSubject
+            }
+        })
+    }
 }
 
