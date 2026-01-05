@@ -129,6 +129,7 @@ model classroom {
 model group {
   id_group                   Int                          @id @default(autoincrement())
   id_career_subject          Int?
+  group_name                 String?                      @db.VarChar(2)
   career_subject             career_subject?              @relation(fields: [id_career_subject], references: [id_career_subject], onDelete: NoAction, onUpdate: NoAction)
   group_class_schedule       group_class_schedule[]
   group_classroom            group_classroom[]
