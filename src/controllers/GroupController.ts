@@ -44,4 +44,15 @@ export class GroupController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    async deleteGroup(req: Request, res: Response) {
+        try {
+            const idGroup = Number(req.params.id);
+            await this.groupService.deleteGroup(idGroup);
+            res.status(200).json({ message: 'Group deleted successfully' });
+        }
+        catch (error: any) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }

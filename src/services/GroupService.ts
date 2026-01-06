@@ -25,4 +25,14 @@ export class GroupService {
     async updateGroup(idGroup: number, groupName: string) {
         await this.groupRepository.updateGroup(idGroup, groupName);
     }
+
+    async deleteGroup(idGroup: number) {
+        const group = await this.groupRepository.findGroupById(idGroup);
+        if (!group) {
+            throw new Error('Group not found');
+        } else {
+            await this.groupRepository.deleteGroup(idGroup);
+        }
+    }
+
 }

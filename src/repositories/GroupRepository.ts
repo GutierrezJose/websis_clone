@@ -27,4 +27,16 @@ export class GroupRepository {
             data: { group_name: groupName }
         })
     }
+
+    async deleteGroup(idGroup: number) {
+        return await prisma.group.delete({
+            where: { id_group: idGroup }
+        })
+    }
+
+    async findGroupById(idGroup: number) { 
+        return await prisma.group.findUnique({
+            where: { id_group: idGroup }
+        })
+    }
 }
