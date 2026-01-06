@@ -20,4 +20,11 @@ export class GroupRepository {
             where: { id_career_subject: idCareerSubject }
         })
     }
+
+    async updateGroup(idGroup: number, groupName: string) {
+        return await prisma.group.update({
+            where: { id_group: idGroup },
+            data: { group_name: groupName }
+        })
+    }
 }

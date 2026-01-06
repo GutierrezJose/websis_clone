@@ -21,4 +21,8 @@ export class GroupService {
         const groupsDTOs = groups.map(group => new GroupDTO(group.id_group, group.id_career_subject ?? 0, group.group_name ?? ''));
         return groupsDTOs;
     }
+
+    async updateGroup(idGroup: number, groupName: string) {
+        await this.groupRepository.updateGroup(idGroup, groupName);
+    }
 }

@@ -33,4 +33,15 @@ export class GroupController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    async updateGroup(req: Request, res: Response) {
+        try {
+            const idGroup = Number(req.params.id);
+            const { groupName } = req.body;
+            await this.groupService.updateGroup(idGroup, groupName);
+            res.status(200).json({ message: 'Group updated successfully' });
+        } catch (error: any) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
