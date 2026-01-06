@@ -15,4 +15,10 @@ export class GroupService {
         const groupsDTOs = groups.map(group => new GroupDTO(group.id_group, group.id_career_subject ?? 0, group.group_name ?? ''));
         return groupsDTOs;
     }
+
+    async getGroupsByCareerSubject(idCareerSubject: number) {
+        const groups = await this.groupRepository.getGroupsByCareerSubject(idCareerSubject);
+        const groupsDTOs = groups.map(group => new GroupDTO(group.id_group, group.id_career_subject ?? 0, group.group_name ?? ''));
+        return groupsDTOs;
+    }
 }

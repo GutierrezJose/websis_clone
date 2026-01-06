@@ -23,4 +23,14 @@ export class GroupController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    async getGroupsByCareerSubject(req: Request, res: Response) {
+        try {
+            const idCareerSubject = Number(req.params.idCareerSubject);
+            const groups = await this.groupService.getGroupsByCareerSubject(idCareerSubject);
+            res.status(200).json(groups);
+        } catch (error: any) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }

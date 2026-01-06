@@ -14,4 +14,10 @@ export class GroupRepository {
     async getAllGroups() {
         return await prisma.group.findMany();
     }
+
+    async getGroupsByCareerSubject(idCareerSubject: number) {
+        return await prisma.group.findMany({
+            where: { id_career_subject: idCareerSubject }
+        })
+    }
 }

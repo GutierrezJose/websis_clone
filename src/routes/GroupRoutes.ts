@@ -6,5 +6,5 @@ const groupController = new GroupController();
 
 router.post('/groups', (req, res) => groupController.createGroup(req, res));
 router.get('/groups', (req, res) => groupController.getAllGroups(req, res));
-
+router.get('/groups/career-subject/:idCareerSubject', (req, res) => groupController.getGroupsByCareerSubject(req, res));
 export default router;
