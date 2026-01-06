@@ -10,4 +10,8 @@ export class GroupRepository {
             }
         })
     }
+
+    async getAllGroups() {
+        return await prisma.group.findMany();
+    }
 }
