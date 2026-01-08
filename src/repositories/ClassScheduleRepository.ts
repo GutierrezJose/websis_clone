@@ -9,4 +9,8 @@ export class ClassScheduleRepository {
             }
         })
     }
+    
+    async getAllClassSchedules() {
+        return await prisma.class_schedule.findMany();
+    }
 }

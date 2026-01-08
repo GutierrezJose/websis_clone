@@ -14,4 +14,13 @@ export class ClassScheduleController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    async getAllClassSchedules(_req: Request, res: Response) {
+        try {
+            const schedules = await this.classScheduleService.getAllClassSchedules();
+            res.status(200).json(schedules);
+        } catch (error: any) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
