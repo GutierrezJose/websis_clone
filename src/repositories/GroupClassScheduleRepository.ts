@@ -26,4 +26,12 @@ export class GroupClassScheduleRepository {
             }
         });
     }
+
+    async getAllSchedulesAssygnedInSameClassSchedule(idSchedule: number) {
+        return await prisma.group_class_schedule.findMany({
+            where: {
+                id_class_schedule: idSchedule
+            }
+        });
+    }
 }

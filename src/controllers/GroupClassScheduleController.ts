@@ -23,4 +23,14 @@ export class GroupClassScheduleController {
             res.status(500).json({ error: error.message } );
         }
     }
+
+    async getAllSchedulesAssygnedInSameClassSchedule(req: Request, res: Response) {
+        try {
+            const { scheduleId } = req.params;
+            const schedules = await this.groupClassScheduleService.getAllSchedulesAssygnedInSameClassSchedule(Number(scheduleId));
+            res.status(200).json(schedules);
+        } catch (error: any) {
+            res.status(500).json({ error: error.message } );
+        }
+    }
 }
