@@ -1,0 +1,16 @@
+import type { Request, Response } from "express";
+import { GroupClassScheduleService } from "../services/GroupClassScheduleService";
+
+export class GroupClassScheduleController {
+    private groupClassScheduleService = new GroupClassScheduleService();
+
+    async addScheduleToGroup(req: Request, res: Response) {
+        try {
+            const { groupId, scheduleId } = req.body;
+            await this.groupClassScheduleService.addScheduleToGroup(groupId, scheduleId);
+            res.status(201).json({ message: "Schedule added to group successfully." });
+        } catch (error: any) {
+            res.status(500).json({ error: error.message } );
+        }
+    }
+}
