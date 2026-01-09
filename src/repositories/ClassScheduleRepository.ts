@@ -13,4 +13,19 @@ export class ClassScheduleRepository {
     async getAllClassSchedules() {
         return await prisma.class_schedule.findMany();
     }
+
+    async updateClassSchedule(id: number, classScheduleData: ClassScheduleInterface) {
+        return await prisma.class_schedule.update({
+            where: { id_class_schedule: id },
+            data: {
+                schedule: classScheduleData.schedule
+            }
+        })
+    }
+
+    async getClassScheduleById(id: number) {
+        return await prisma.class_schedule.findUnique({
+            where: { id_class_schedule: id }
+        })
+    }
 }

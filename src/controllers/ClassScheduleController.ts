@@ -23,4 +23,16 @@ export class ClassScheduleController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    async updateClassSchedule(req: Request, res: Response) {
+        try {
+            const id = Number(req.params.id);
+            const classScheduleData: ClassScheduleInterface = req.body;
+            await this.classScheduleService.updateClassSchedule(id, classScheduleData);
+            res.status(200).json({ message: 'Class schedule updated successfully' });
+        } catch (error: any) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+    
 }
