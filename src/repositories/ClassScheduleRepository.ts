@@ -28,4 +28,10 @@ export class ClassScheduleRepository {
             where: { id_class_schedule: id }
         })
     }
+
+    async deleteClassSchedule(id: number) {
+        return await prisma.class_schedule.delete({
+            where: { id_class_schedule: id }
+        })
+    }
 }

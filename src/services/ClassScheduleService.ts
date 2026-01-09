@@ -23,4 +23,13 @@ export class ClassScheduleService {
             await this.classScheduleRepository.updateClassSchedule(id, classScheduleData);
         }
     }
+
+    async deleteClassSchedule(id: number) {
+        const schedule = await this.classScheduleRepository.getClassScheduleById(id);
+        if (!schedule) {
+            throw new Error('Class schedule not found');
+        } else {
+            await this.classScheduleRepository.deleteClassSchedule(id);
+        }
+    }
 }
