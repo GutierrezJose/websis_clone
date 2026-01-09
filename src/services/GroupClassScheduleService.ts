@@ -15,7 +15,7 @@ export class GroupClassScheduleService {
 
     async getScheduleByGroup(idGroup: number) {
         const schedules = await this.groupClassScheduleRepository.getScheduleByGroup(idGroup);
-        const scheduleDTOs = schedules.map(schedule => (new GroupClassScheduleDTO(schedule.id_group_class_schedule ?? 0 ,schedule.id_group ?? 0, schedule.id_class_schedule ?? 0)));
+        const scheduleDTOs = schedules.map(schedule => (new GroupClassScheduleDTO(schedule.id_group_class_schedule ?? 0, schedule.id_group ?? 0, schedule.id_class_schedule ?? 0)));
         return scheduleDTOs;
     }
 
@@ -23,5 +23,14 @@ export class GroupClassScheduleService {
         const schedules = await this.groupClassScheduleRepository.getAllSchedulesAssygnedInSameClassSchedule(idSchedule);
         const scheduleDTOs = schedules.map(schedule => (new GroupClassScheduleDTO(schedule.id_group_class_schedule ?? 0, schedule.id_group ?? 0, schedule.id_class_schedule ?? 0)));
         return scheduleDTOs;
+    }
+
+    async deleteByGroupClassScheduleId(idGroupClassSchedule: number) {
+        const existingRecord = await this.groupClassScheduleRepository.findById(idGroupClassSchedule);
+        if (!existingRecord) {
+            throw new Error("Group class schedule record not found.");
+        } else {
+            await this.groupClassScheduleRepository.deleteByGroupClassScheduleId(idGroupClassSchedule);
+        }
     }
 }

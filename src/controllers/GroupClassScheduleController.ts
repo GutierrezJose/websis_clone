@@ -33,4 +33,14 @@ export class GroupClassScheduleController {
             res.status(500).json({ error: error.message } );
         }
     }
+
+    async deleteByGroupClassScheduleId(req: Request, res: Response) {
+        try {
+            const { idGroupClassSchedule } = req.params;
+            await this.groupClassScheduleService.deleteByGroupClassScheduleId(Number(idGroupClassSchedule));
+            res.status(200).json({ message: "Group class schedule record deleted successfully." });
+        } catch (error: any) {
+            res.status(500).json({ error: error.message } );
+        }
+    }
 }

@@ -34,4 +34,20 @@ export class GroupClassScheduleRepository {
             }
         });
     }
+
+    async deleteByGroupClassScheduleId(idGroupClassSchedule: number) {
+        return await prisma.group_class_schedule.delete({
+            where: {
+                id_group_class_schedule: idGroupClassSchedule
+            }
+        });
+    }
+
+    async findById(idGroupClassSchedule: number) {
+        return await prisma.group_class_schedule.findUnique({
+            where: {
+                id_group_class_schedule: idGroupClassSchedule
+            }
+        });
+    }
 }
