@@ -1,3 +1,4 @@
+import { GroupClassScheduleDTO } from "../dto/GroupCareerScheduleDTO";
 import { GroupClassScheduleRepository } from "../repositories/GroupClassScheduleRepository";
 
 export class GroupClassScheduleService {
@@ -10,5 +11,11 @@ export class GroupClassScheduleService {
         } else {
             await this.groupClassScheduleRepository.addSchedule(groupId, scheduleId);
         }
+    }
+
+    async getScheduleByGroup(idGroup: number) {
+        const schedules = await this.groupClassScheduleRepository.getScheduleByGroup(idGroup);
+        const scheduleDTOs = schedules.map(schedule => (new GroupClassScheduleDTO(schedule.id_group ?? 0, schedule.id_class_schedule ?? 0)));
+        return scheduleDTOs;
     }
 }

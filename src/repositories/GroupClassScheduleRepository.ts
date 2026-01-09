@@ -10,11 +10,19 @@ export class GroupClassScheduleRepository {
         })
     }
 
-    async findByGroupAndSchedule(groupId: number, scheduleId: number) {
+    async findByGroupAndSchedule(idGroup: number, scheduleId: number) {
         return await prisma.group_class_schedule.findFirst({
             where: {
-                id_group: groupId,
+                id_group: idGroup,
                 id_class_schedule: scheduleId
+            }
+        });
+    }
+
+    async getScheduleByGroup(idGroup: number) {
+        return await prisma.group_class_schedule.findMany({
+            where: {
+                id_group: idGroup
             }
         });
     }

@@ -13,4 +13,14 @@ export class GroupClassScheduleController {
             res.status(500).json({ error: error.message } );
         }
     }
+
+    async getScheduleByGroup(req: Request, res: Response) {
+        try {
+            const { groupId } = req.params;
+            const schedules = await this.groupClassScheduleService.getScheduleByGroup(Number(groupId));
+            res.status(200).json(schedules);
+        } catch (error: any) {
+            res.status(500).json({ error: error.message } );
+        }
+    }
 }
